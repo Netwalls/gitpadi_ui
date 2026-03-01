@@ -63,11 +63,12 @@ const App = () => {
                     border: `1px solid ${BORDER}`,
                     padding: '4px 8px',
                     borderRadius: '999px',
-                    gap: '16px'
+                    gap: '4px'
                 }}>
-                    <NavItem label="Product" hasChevron />
-                    <NavItem label="Docs" isExternal />
-                    <NavItem label="GitHub" isExternal />
+                    <NavItem label="Contributors" href="#modes" />
+                    <NavItem label="Maintainers" href="#modes" />
+                    <NavItem label="Organizations" href="#modes" />
+                    <NavItem label="CI Integration" href="#ci" />
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -117,7 +118,7 @@ const App = () => {
                         textAlign: 'center'
                     }}
                 >
-                    GitPadi
+                    GitPadi CLI 2.0
                 </motion.h1>
 
                 <motion.p
@@ -125,15 +126,15 @@ const App = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                     style={{
-                        fontSize: 'clamp(18px, 3vw, 28px)',
-                        fontWeight: 'bold',
+                        fontSize: 'clamp(28px, 5vw, 48px)',
+                        fontWeight: 900,
                         color: '#ccc',
                         margin: '0 0 16px 0',
-                        letterSpacing: '-0.02em',
+                        letterSpacing: '-0.03em',
                         textAlign: 'center'
                     }}
                 >
-                    GitHub management for <span style={{ fontStyle: 'italic', color: MUTED }}>everyone.</span>
+                    GitHub management for <span style={{ fontStyle: 'italic', fontWeight: 500, color: MUTED }}>everyone.</span>
                 </motion.p>
 
                 <motion.p
@@ -192,10 +193,10 @@ const App = () => {
                     transition={{ delay: 0.3 }}
                     style={{
                         width: '100%',
-                        maxWidth: '400px',
+                        maxWidth: '600px',
                         backgroundColor: ACCENT,
-                        padding: '20px 32px',
-                        borderRadius: '20px',
+                        padding: '24px 40px',
+                        borderRadius: '24px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -262,7 +263,7 @@ const App = () => {
                 </div>
 
                 {/* ── Three Modes Section ────────────────────────────── */}
-                <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '160px' }}>
+                <div id="modes" style={{ width: '100%', maxWidth: '1100px', marginBottom: '160px', scrollMarginTop: '100px' }}>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -316,7 +317,7 @@ const App = () => {
                 </div>
 
                 {/* ── CI Integration Section ─────────────────────────── */}
-                <div style={{ width: '100%', maxWidth: '1100px', marginBottom: '160px' }}>
+                <div id="ci" style={{ width: '100%', maxWidth: '1100px', marginBottom: '160px', scrollMarginTop: '100px' }}>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -450,8 +451,11 @@ const App = () => {
 
 // ── Components ──────────────────────────────────────────────────────────
 
-const NavItem = ({ label, hasChevron, isExternal }: { label: string, hasChevron?: boolean, isExternal?: boolean }) => (
-    <a style={{ padding: '6px 12px', fontSize: '12px', fontWeight: 'bold', color: MUTED, textDecoration: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+const NavItem = ({ label, hasChevron, isExternal, href }: { label: string, hasChevron?: boolean, isExternal?: boolean, href?: string }) => (
+    <a href={href} style={{ padding: '8px 14px', fontSize: '12px', fontWeight: 'bold', color: MUTED, textDecoration: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', borderRadius: '999px', transition: 'all 0.2s' }}
+        onMouseEnter={e => { (e.target as HTMLElement).style.color = '#fff'; (e.target as HTMLElement).style.backgroundColor = '#1a1a1a'; }}
+        onMouseLeave={e => { (e.target as HTMLElement).style.color = MUTED; (e.target as HTMLElement).style.backgroundColor = 'transparent'; }}
+    >
         {label}
         {hasChevron && <ChevronDown size={12} />}
         {isExternal && <span style={{ opacity: 0.4, fontSize: '10px' }}>↗</span>}
