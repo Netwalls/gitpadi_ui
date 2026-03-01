@@ -6,6 +6,7 @@ const MUTED = '#555';
 const GREEN = '#00ff87';
 const CYBER_MAGENTA = '#ff00ff';
 const CYBER_CYAN = '#00ffff';
+const YELLOW = '#ffd700';
 
 const Terminal = () => {
     const [lines, setLines] = useState<any[]>([]);
@@ -20,7 +21,7 @@ const Terminal = () => {
             setLines([]);
             setPhase('installing');
 
-            // 1. NPX Prompt (The absolute start)
+            // 1. NPX Prompt
             await addLine('$ npx gitpadi', '#fff', 80, true);
             await sleep(600);
             await addLine('Need to install the following packages:', MUTED);
@@ -28,11 +29,11 @@ const Terminal = () => {
             await addLine('Ok to proceed? (y) ', MUTED, 0, false, '', 'y');
             await sleep(1000);
 
-            // 2. Clear and Start CLI Boot (Mirroring src/cli.ts)
+            // 2. Clear and Boot
             setLines([]);
             setPhase('booting');
 
-            // FIGlet Banner (ANSI Shadow simulated)
+            // FIGlet Banner
             const bannerLines = [
                 '  ____ _ _   ____           _ _ ',
                 ' / ___(_) |_|  _ \\ __ _  __| (_) ',
@@ -45,13 +46,13 @@ const Terminal = () => {
                 await addLine(bannerLines[i], color, 0, false, 'font-bold text-[10px] leading-[1.1]');
             }
 
-            // Boxen Metadata
+            // Boxen
             await addLine('╔══════════════════════════════════════════════════════════════╗', MUTED);
             await addLine('║  v2.0.0  |  AI-Powered GitHub Management  |  by Netwalls   ║', CYBER_MAGENTA, 0, false, 'font-bold');
             await addLine('╚══════════════════════════════════════════════════════════════╝', MUTED);
             await sleep(400);
 
-            // Boot Steps (EXACT strings from src/cli.ts)
+            // Boot Steps
             const bootSteps = [
                 '▸ Initializing GitPadi engine',
                 '▸ Loading command modules',
@@ -65,17 +66,41 @@ const Terminal = () => {
             }
             await sleep(600);
 
-            // 5. Mode Selector (EXACT strings from src/cli.ts)
+            // 3. Mode Selector — All 3 modes
             setPhase('menu');
             await addLine('', '#fff');
             await addLine('⟨ GITPADI MODE SELECTOR ⟩', CYBER_CYAN, 0, false, 'font-black tracking-[0.2em]');
             await addLine('Select your workflow persona to continue', MUTED);
             await addLine('─'.repeat(45), '#222');
             await addLine('', '#fff');
-            await addLine('✔ Choose your path:', '#fff', 0, false, 'font-bold', ' ✨ Contributor Mode');
-            await addLine('  — fork, clone, sync, submit PRs', MUTED, 0, false, 'italic text-[11px] pl-4');
+            await addLine('? Choose your path:', '#fff', 0, false, 'font-bold');
+            await sleep(300);
+            await addLine('  ✨  Contributor Mode     — fork, clone, sync, submit PRs', CYBER_CYAN);
+            await sleep(200);
+            await addLine('  🛠️  Maintainer Mode      — manage issues, PRs, contributors', CYBER_MAGENTA);
+            await sleep(200);
+            await addLine('  🏫  Organization/School  — assignments, grading, leaderboard', YELLOW);
+            await sleep(200);
+            await addLine('  ─────────────────────────────', '#222');
+            await addLine('  👋  Exit', MUTED);
+            await sleep(800);
 
-            await sleep(10000);
+            // Simulate picking Org mode
+            await addLine('', '#fff');
+            await addLine('▸ Organization/School selected', YELLOW, 0, false, 'font-bold');
+            await sleep(400);
+            await addLine('', '#fff');
+            await addLine('🏫 GITPADI ORGANIZATION / SCHOOL', YELLOW, 0, false, 'font-bold');
+            await addLine('Create assignments, grade PRs, track student performance', MUTED);
+            await addLine('─'.repeat(45), '#222');
+            await sleep(300);
+            await addLine('  📝  Create Assignment    — post a new assignment as an issue', YELLOW);
+            await sleep(200);
+            await addLine('  📊  Grade a PR           — score a student submission', GREEN);
+            await sleep(200);
+            await addLine('  🏆  Cohort Leaderboard   — rank all students by score', CYBER_CYAN);
+
+            await sleep(12000);
             isRunning.current = false;
             run();
         };
@@ -115,7 +140,6 @@ const Terminal = () => {
             lineHeight: 1.4,
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
         }}>
-            {/* Header (Matching User's screenshot style) */}
             <div style={{
                 backgroundColor: '#050505',
                 padding: '12px 20px',
@@ -132,10 +156,9 @@ const Terminal = () => {
                 <div style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 900, color: '#333' }}>GitPadi Terminal</div>
             </div>
 
-            {/* Content */}
             <div style={{
                 padding: '32px',
-                height: '400px',
+                height: '460px',
                 overflowY: 'auto',
                 textAlign: 'left',
                 display: 'flex',
